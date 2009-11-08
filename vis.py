@@ -16,11 +16,11 @@ result = oa.request( "getRepresentatives", {"search":"Kevin%20Rudd"} )
 print result
 dom = xml.parseString(result)
 elem = dom.getElementsByTagName("person_id").item(0)
-for child in elem.childNodes:
-    if child.nodeType == xml.TEXT_NODE:
-        id = child.data
-        break
-print id
+#for child in elem.childNodes:
+    #if child.nodeType == xml.TEXT_NODE:
+        #id = child.data
+        #break
+#print id
 
 # exercise term counting.
 for term in ["promiscuity","affair","web","broadband"]:
