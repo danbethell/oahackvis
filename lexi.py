@@ -19,6 +19,11 @@ def termCount(term,person=None,debates=True,comments=True,hansard=True):
         dom = xml.parseString(result)
         count += dom.getElementsByTagName("match")
     if debates:
+        parms.update({"type":"representatives"})
+        result = oa.request( "getDebates", parms)
+        dom = xml.parseString(result)
+        count += dom.getElementsByTagName("match")
+        parms.update({"type":"senate"})
         result = oa.request( "getDebates", parms)
         dom = xml.parseString(result)
         count += dom.getElementsByTagName("match")
@@ -31,6 +36,7 @@ def termCount(term,person=None,debates=True,comments=True,hansard=True):
 
 if __name__ == '__main__':
     for term in ['transport','economy','promiscuity','broadband','alcohol','crowdsourcing']:
+        print '%s total %s' % (term, termCount(term))
         print '%s debates %s' % (term, termCount(term, comments=False, hansard=False))
         print '%s hansard %s' % (term, termCount(term, debates=False, comments=False))
         print '%s comments %s' % (term, termCount(term, hansard=False, debates=True))
