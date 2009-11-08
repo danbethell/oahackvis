@@ -5,10 +5,9 @@ request_root = "http://www.openaustralia.org/api/"
 
 # request some information
 def request( function, params={}, dom=False):
-    global api_key, request_root
-    plist = ['key=%s' % key.api_key,'output=xml']
-    for key in params.keys():
-        plist.append('%s=%s' % (key,params[key]))
+    plist = ['key=%s' % key.getAPIKey(),'output=xml']
+    for k in params.keys():
+        plist.append('%s=%s' % (k,params[k]))
     request = "%s%s?%s" % ( request_root, function, '&'.join(plist) )
     response = urllib2.urlopen( request )
     result = response.read()
