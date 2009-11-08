@@ -1,19 +1,17 @@
 import urllib2
+import xml.dom.minidom as xml
 import key
 
 request_root = "http://www.openaustralia.org/api/"
 
 # request some information
-def request( function, params={}, dom=False):
+def request( function, params={}):
     plist = ['key=%s' % key.getAPIKey(),'output=xml']
     for k in params.keys():
         plist.append('%s=%s' % (k,params[k]))
     request = "%s%s?%s" % ( request_root, function, '&'.join(plist) )
     response = urllib2.urlopen( request )
     result = response.read()
-    if dom:
-        doc = xml.dom.minidom.parseString(result)
-        return doc
     return result
 
 def termCount(term,person=None,debates=True,comments=True,hansard=True):
