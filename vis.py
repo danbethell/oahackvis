@@ -7,12 +7,22 @@ import oa, lexi
 result = oa.request( "getRepresentatives" )
 dom = xml.parseString(result)
 representatives = dom.getElementsByTagName("match")
-
-# print some results
 print "Num Representatives: %d" % len(representatives)
+for rep in representatives:
+    print rep
+
+# get a representative's id
+result = oa.request( "getRepresentatives", {"search":"Kevin%20Rudd"} )
+print result
+dom = xml.parseString(result)
+elem = dom.getElementsByTagName("person_id").item(0)
+for child in elem.childNodes:
+    if child.nodeType == xml.TEXT_NODE:
+        id = child.data
+        break
+print id
 
 # exercise term counting.
-print lexi.termCount("promiscuity")
-print lexi.termCount("affair")
-print lexi.termCount("web")
-print lexi.termCount("broadband")
+for term in ["promiscuity","affair","web","broadband"]:
+    print 'Term %s: %d' % (term,lexi.termCount(term))
+    print "Term %s in %s: %d" % (term, "hansards", lexi.termCount(term, debates=False, comments=False))

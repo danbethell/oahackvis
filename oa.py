@@ -1,15 +1,17 @@
 import urllib2
+import key
 
-api_key = "BQZw3gBCok7mGHLW9kB5t65S"
 request_root = "http://www.openaustralia.org/api/"
 
 # request some information
-def request( function, params={}):
-    global api_key, request_root
-    plist = ['key=%s' % api_key,'output=xml']
-    for key in params.keys():
-        plist.append('%s=%s' % (key,params[key]))
+def request( function, params={}, dom=False):
+    plist = ['key=%s' % key.getAPIKey(),'output=xml']
+    for k in params.keys():
+        plist.append('%s=%s' % (k,params[k]))
     request = "%s%s?%s" % ( request_root, function, '&'.join(plist) )
     response = urllib2.urlopen( request )
     result = response.read()
+    if dom:
+        doc = dom.parseString(result)
+        return doc
     return result
