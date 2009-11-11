@@ -1,1 +1,61 @@
 Visualisation project using OpenAustralia data as part of #oahack.
+
+@rhaleblian
+@fxmonkeydan
+
+We used the OpenAustralia API to get information about representatives and then
+used Houdini to visualise the data.
+
+http://www.openaustralia.org/api
+
+The project consists of 2 files:
+* vis.py - this is the high-level module that is imported
+* oa.py - the under-the-hood OpenAustralia API bits & bobs
+
+__Usage__
+1) Replace the key at the top of oa.py with your OpenAustralia API key
+2) Put the files somewhere on your $PYTHONPATH
+3) Import the vis module in python
+
+__Methods__
+The vis module exposes a few methods useful for visualisation in Houdini:
+
+vis.numRepresentatives()
+  The number of representatives
+
+vis.getName( index )
+  Returns the name of representative # index
+
+vis.numDebates( index )
+  The number of debates by representative # index
+
+vis.termCount( index, term )
+  The number of debate/hansard entries where representative # index uses 'term'
+
+vis.getColour( index )
+  Returns a colour based on the party of representative # index
+
+__Examples__
+
+Python 2.6.1 (r261:67515, Mar  8 2009, 12:34:02) 
+[GCC 4.0.1 (Apple Inc. build 5488)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import vis
+>>> vis.numRepresentatives()
+150
+>>> for i in range(0,10):
+...     print vis.getName(i)
+..
+Dick Adams
+Anthony Albanese
+Kevin Andrews
+Bob Baldwin
+Bruce Billson
+Sharon Bird
+James Bidgood
+Russell Broadbent
+Anthony Byrne
+David Bradbury
+>>> vis.termCount( 10, "internet" )
+8
+
