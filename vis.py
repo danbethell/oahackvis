@@ -22,7 +22,6 @@ def getColour( index ):
     '''
     Returns a random colour for the party of representative at index
     '''
-    global assigned_colours
     party = reps[index]['party']
     some_colours = [
         (1,.5,.5),
